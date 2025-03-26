@@ -1,0 +1,16 @@
+extends layout
+
+block layout-content
+  div.View
+    h1.Banner Projetos IoT
+    div.Message
+      div.Title
+        h3 Envio de Arquivos via MQTT
+      span.Details 
+
+    div.UploadSection
+      h3 Faça o upload do arquivo
+      form(action="/send-files/upload" method="post" enctype="multipart/form-data")
+        label(for="file") Chose a file:
+        input(type="file" name="file1" id="file")
+        button(type="submit") Send

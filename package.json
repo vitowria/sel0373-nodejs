@@ -1,0 +1,23 @@
+{
+  "name": "node-learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-fileupload": "^1.5.1",
+    "mqtt": "^5.10.4",
+    "pug": "^3.0.3",
+    "url": "^0.11.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
