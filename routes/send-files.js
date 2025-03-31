@@ -39,11 +39,12 @@ router.get("/", (req, res) => {
 
 router.post("/upload", (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send("No file was sen.");
+    return res.status(400).send("Nenhum arquivo foi enviado");
   }
   
   let uploadedFile = req.files.file1; 
   let uploadPath = path.join("public/uploads", uploadedFile.name); 
+  
   uploadedFile.mv(uploadPath, (err) => {
     if (err) return res.status(500).send(err);
     res.send(`Upload successful! <a href="/uploads/${uploadedFile.name}">View file</a>`);

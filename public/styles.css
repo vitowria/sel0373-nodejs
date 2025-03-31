@@ -106,7 +106,7 @@ a {
 }
 
 .Message {
-  background: white;
+  background: rgba(255, 255, 255, 0.349);
   padding: 30px;
   border-bottom: var(--ui-shadow-border);
   box-shadow: var(--ui-shadow);
@@ -138,7 +138,7 @@ a {
   height: 55px;
   width: 150px;
 
-  background: #fa4141;
+  background: #0855f9;
 
   border-radius: 30px;
 

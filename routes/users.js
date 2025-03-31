@@ -1,37 +1,73 @@
 const express = require("express")
 const router = express.Router()
-
+//const User = require("../models/User");
 
 //router.get("/", (req, res) => {
   //console.log(req.query.name)
   //res.send("User List")
 //})
+let users = [];
 
-router.get("/new", (req, res) => {
-  res.render("/register")
+router.get("/register", (req, res) => {
+  res.render("register")
 })
 
-router.get("/login",(req, res)=>{
-  res.render("/login")
-})
-router.post('/', (req, res, next) => {
-  // The data sent from the user are stored in the req.body object.
-  // call our login function and it will return the result(the user data).
-  user.login(req.body.username, req.body.password, function(result) {
-      if(result) {
-          // Store the user data in a session.
-          req.session.user = result;
-          req.session.opp = 1;
-          // redirect the user to the home page.
-          res.redirect('/home');
-      }else {
-          // if the login function returns null send this error message back to the user.
-          res.send('Username/Password incorrect!');
-      }
-  })
-
+router.get("/", (req, res) => {
+  res.render("login");
 });
 
+router.post("/login", (req, res) => {
+  const { username, password } = req.body;
 
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (user) {
+    return res.redirect("/send-files");
+  }
+  
+  res.send("Usuário ou senha incorretos!");
+  return res.redirect("/login");
+  
+  
+});
+/*
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    // Verificar se o usuário existe
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).send("Usuário não encontrado!");
+    }
+
+   
+    if (user.password !== password) {
+      return res.status(401).send("Senha incorreta!");
+    }
+
+    // Redirecionar para a rota send-files
+    res.redirect("/send-files");
+  } catch (error) {
+    res.status(500).send("Erro no login!");
+  }
+});
+*/
+
+router.post('/register', (req, res) => {
+  const { username, password } = req.body;
+
+  // Verificar se o usuário já existe
+  const userExists = users.some(user => user.username === username);
+  
+  if (userExists) {
+    return res.send('<h3>Usuário já existe! Tente outro.</h3>');
+  }
+
+  // Adicionar o novo usuário ao vetor
+  users.push({ username, password });
+
+  res.send('<h3>Usuário registrado com sucesso!</h3><a href="/register">Cadastrar outro</a>');
+});
 
 module.exports = router
