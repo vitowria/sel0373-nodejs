@@ -44,7 +44,7 @@ router.post("/upload", (req, res) => {
   
   let uploadedFile = req.files.file1; 
   let uploadPath = path.join("public/uploads", uploadedFile.name); 
-  
+
   uploadedFile.mv(uploadPath, (err) => {
     if (err) return res.status(500).send(err);
     res.send(`Upload successful! <a href="/uploads/${uploadedFile.name}">View file</a>`);

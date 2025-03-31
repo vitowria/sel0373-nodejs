@@ -9,11 +9,11 @@ const router = express.Router()
 let users = [];
 
 router.get("/register", (req, res) => {
-  res.render("register")
+  res.render("register", { error: null });
 })
 
 router.get("/", (req, res) => {
-  res.render("login");
+  res.render("login", { error: null });
 });
 
 router.post("/login", (req, res) => {
@@ -25,8 +25,7 @@ router.post("/login", (req, res) => {
     return res.redirect("/send-files");
   }
   
-  res.send("Usuário ou senha incorretos!");
-  return res.redirect("/login");
+  res.render("login", { error: "Usuário ou senha incorretos!" });
   
   
 });
@@ -61,13 +60,13 @@ router.post('/register', (req, res) => {
   const userExists = users.some(user => user.username === username);
   
   if (userExists) {
-    return res.send('<h3>Usuário já existe! Tente outro.</h3>');
+    return res.render("register", { error: "Usuário já existe!" });
   }
 
   // Adicionar o novo usuário ao vetor
   users.push({ username, password });
 
-  res.send('<h3>Usuário registrado com sucesso!</h3><a href="/register">Cadastrar outro</a>');
+  res.send('<h3>Usuário registrado com sucesso!</h3><a href="/users/register">Cadastrar outro</a>');
 });
 
 module.exports = router

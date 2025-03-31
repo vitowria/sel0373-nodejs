@@ -10,13 +10,16 @@ html
       .card.shadow-lg(style="width: 300px;")
         .card-body
           h2.card-title.text-center Registrar
+          // Mensagem de erro se houver
+          if error
+            .alert.alert-danger.text-center.mb-3 #{error}
           form(action="/users/register" method="POST")
             .mb-3
-              label.form-label(for="username") Useename
+              label.form-label(for="username") Username
               input#username.form-control(type="text" name="username" placeholder="Digite seu usuário" required)
             .mb-3
               label.form-label(for="password") Senha
               input#password.form-control(type="password" name="password" placeholder="Digite sua senha" required)
-            button.btn.btn-primary.w-100(type="submit") Criat conta
+            button.btn.btn-primary.w-100(type="submit") Criar conta
           p.text-center.mt-3
-            a(href="/login") Voltar ao login
+            a(href="/users") Voltar ao login
