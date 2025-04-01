@@ -1,0 +1,121 @@
+/* Reset e estilos básicos */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilização do body */
+/* Define a fonte Futura, cor de fundo mint claro e texto em azul escuro */
+body {
+  font-family: Futura, sans-serif;
+  background-color: #f3f9f8;
+  color: #25256a;
+  line-height: 1.6;
+}
+
+/* Container para toda a página */
+/* Limita a largura máxima, centraliza e adiciona espaçamento interno */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Estilos do cabeçalho */
+/* Centraliza o texto e adiciona margem inferior */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #25256a;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #399EBB;
+  margin-top: 10px;
+}
+
+/* Estilização do formulário e do card */
+/* Exibe o formulário em coluna e centraliza os itens */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Card de upload */
+/* Fundo claro, bordas arredondadas, sombra e espaçamento interno */
+.upload-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Estilização dos labels dentro do card de upload */
+.upload-card label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Estilização do input de arquivo */
+.upload-card input[type="file"] {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* Estilização do botão de envio */
+/* Botão com fundo azul claro, texto claro, bordas arredondadas e transição suave */
+.send-button button {
+  background-color: #53BADB;
+  color: #f3f9f8;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.send-button button:hover {
+  background-color: #399EBB;
+}
+
+/* Estilização do rodapé */
+/* Texto centralizado, margem superior e cor específica */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #399EBB;
+}
+
+/* Ajustes responsivos */
+/* Reduz o tamanho do título e ajusta o card e botão em telas menores */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .upload-card {
+    padding: 15px;
+    max-width: 90%;
+  }
+  
+  .send-button button {
+    width: 100%;
+    padding: 15px;
+  }
+}

@@ -1,0 +1,10 @@
+/* custom.css para dar overwrite no estilo do bootstrap */
+.btn-primary {
+    background-color: #53BADB; /* Your custom blue */
+    border-color: #53BADB;
+  }
+  
+  .btn-primary:hover {
+    background-color: #399EBB; /* A darker shade on hover */
+    border-color: #399EBB;
+  }

@@ -1,18 +1,28 @@
-extends layout
+doctype html
+html(lang="pt-BR")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Projetos IOT
+    link(rel="stylesheet", href="/css/index.css")
+  body
+    // Barra de navegação superior
+    header.navbar
+      .logo
+        // Logo clicável que redireciona para a página inicial
+        a.logo-text(href="/") Projetos IOT
+      nav.nav-right
+        // Botão de login no canto superior direito
+        a.login-button(href="/users") Login
 
-block layout-content
-  div.View
-    h1.Banner Projetos IoT
-    div.Message
-      div.Title
-        h3 teste 1
-        h1 teste 2
-      span.Details teste 3
-    div.NavButtons
-      a(href="/users")
-        div.NavButton Log-in
-      a(href="/users/register")
-        div.NavButton Novo Usuário
-      
-        
-      
+    // Seção principal (Hero)
+    section.hero
+      // Camada de sobreposição para aplicar estilo ao fundo
+      .overlay 
+        .hero-content
+          // Título principal do projeto
+          h1.hero-title Projetos IOT
+          // Descrição do projeto
+          p.hero-description Prova de conceito de uma aplicação com NodeJS, Express, MQTT e DB para sistemas IoT.
+          // Botão para começar (leva para a página de registro)
+          a.get-started-button(href="/users/register") Começar

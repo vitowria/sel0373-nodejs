@@ -1,16 +1,23 @@
-extends layout
-
-block layout-content
-  div.View
-    h1.Banner Projetos IoT
-    div.Message
-      div.Title
-        h3 Envio de Arquivos via MQTT
-      span.Details 
-
-    div.UploadSection
-      h3 Faça o upload do arquivo
-      form(action="/send-files/upload" method="post" enctype="multipart/form-data")
-        label(for="file") Escolher arquivo:
-        input(type="file" name="file1" id="file")
-        button(type="submit") Enviar
+doctype html
+html(lang="pt-BR")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Projetos IOT - Envios de arquivos via MQTT
+    link(rel="stylesheet", href="/css/sendfiles.css")
+  body
+    // Container para o formulário de envio de arquivos
+    .container
+      header.header
+        a(href="/")
+          h1.title Projetos IOT
+        h2.subtitle Envios de arquivos via MQTT
+      main
+        form.upload-form(action="/send-files/upload" method="post" enctype="multipart/form-data")
+          .upload-card
+            label(for="file") Escolha o arquivo
+            input#file(type="file", name="file1")
+          .send-button
+            button(type="submit") Enviar Arquivo
+      footer.footer
+        p © 2025 Projetos IOT

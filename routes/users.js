@@ -1,72 +1,79 @@
-const express = require("express")
-const router = express.Router()
-//const User = require("../models/User");
+// Importa o módulo Express e cria um roteador
+const express = require("express");
+const router = express.Router();
 
-//router.get("/", (req, res) => {
-  //console.log(req.query.name)
-  //res.send("User List")
-//})
+// Importa o módulo bcrypt para hashing de senhas
+const bcrypt = require("bcrypt");
+const saltRounds = 10; // Define a quantidade de rounds para gerar o salt
+
+// Variável para armazenar os usuários (in-memory, apenas para teste)
 let users = [];
 
+// Rota GET para exibir a página de registro de novo usuário
 router.get("/register", (req, res) => {
+  // Renderiza a view "register" e passa um erro nulo inicialmente
   res.render("register", { error: null });
-})
+});
 
+// Rota GET para exibir a página de login
 router.get("/", (req, res) => {
+  // Renderiza a view "login" e passa um erro nulo inicialmente
   res.render("login", { error: null });
 });
 
+// Rota POST para processar o login do usuário
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
-
-  const user = users.find(u => u.username === username && u.password === password);
-
-  if (user) {
-    return res.redirect("/send-files");
+  
+  // Procura um usuário com o username fornecido
+  const user = users.find(u => u.username === username);
+  if (!user) {
+    // Se o usuário não for encontrado, renderiza a página de login com mensagem de erro
+    return res.render("login", { error: "Usuário ou senha incorretos!" });
   }
-  
-  res.render("login", { error: "Usuário ou senha incorretos!" });
-  
-  
-});
-/*
-router.post("/login", async (req, res) => {
-  try {
-    const { username, password } = req.body;
 
-    // Verificar se o usuário existe
-    const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(400).send("Usuário não encontrado!");
+  // Compara a senha fornecida com o hash armazenado usando bcrypt
+  bcrypt.compare(password, user.password, (err, result) => {
+    if (err) {
+      console.log("Comparison Result:", err); // Log para verificação (depuração)
+      // Em caso de erro na comparação, retorna erro 500
+      return res.status(500).send("Erro na autenticação!");
     }
-
-   
-    if (user.password !== password) {
-      return res.status(401).send("Senha incorreta!");
+    console.log("Comparison Result:", result); // Log para verificação (depuração)
+    if (result) {
+      // Se as senhas coincidirem, redireciona para a rota de envio de arquivos
+      return res.redirect("/send-files");
+    } else {
+      // Se não coincidirem, renderiza a página de login com mensagem de erro
+      return res.render("login", { error: "Usuário ou senha incorretos!" });
     }
-
-    // Redirecionar para a rota send-files
-    res.redirect("/send-files");
-  } catch (error) {
-    res.status(500).send("Erro no login!");
-  }
+  });
 });
-*/
 
-router.post('/register', (req, res) => {
+// Rota POST para registrar um novo usuário
+router.post("/register", (req, res) => {
   const { username, password } = req.body;
-
-  // Verificar se o usuário já existe
-  const userExists = users.some(user => user.username === username);
   
+  // Verifica se já existe um usuário com o mesmo username
+  const userExists = users.some(user => user.username === username);
   if (userExists) {
+    // Se o usuário já existe, renderiza a página de registro com uma mensagem de erro
     return res.render("register", { error: "Usuário já existe!" });
   }
-
-  // Adicionar o novo usuário ao vetor
-  users.push({ username, password });
-
-  res.send('<h3>Usuário registrado com sucesso!</h3><a href="/users/register">Cadastrar outro</a>');
+  
+  // Hash a senha usando bcrypt antes de armazenar o usuário
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      // Em caso de erro durante o hash, retorna erro 500
+      return res.status(500).send("Erro ao processar a senha.");
+    }
+    console.log("Hashed password:", hash); // Log do hash (remova em produção)
+    // Adiciona o novo usuário ao array, armazenando o username e o hash da senha
+    users.push({ username, password: hash });
+    // Redireciona para a página de login após o registro bem-sucedido
+    res.redirect("/users");
+  });
 });
 
-module.exports = router
+// Exporta o roteador para utilização em outras partes da aplicação
+module.exports = router;
