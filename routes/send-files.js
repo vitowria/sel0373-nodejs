@@ -19,8 +19,8 @@ const client = mqtt.connect('mqtt://igbt.eesc.usp.br', {
 const mqtt_topic = 'node';
 
 // Configura o evento para quando uma mensagem for recebida em algum tópico inscrito
-client.on('message', (topic, message) => {
-  console.log(`Received message on topic ${topic}: ${message}`);
+client.on('message', (mqtt_topic, message) => {
+  console.log(`Received message on topic ${mqtt_topic}: ${message}`);
 });
 
 // Configura o evento para quando a conexão com o broker for estabelecida
@@ -63,6 +63,15 @@ router.post("/upload", (req, res) => {
   // Move (salva) o arquivo para o caminho definido
   uploadedFile.mv(uploadPath, (err) => {
     if (err) return res.status(500).send(err);
+        // Após o upload bem-sucedido, publica uma mensagem no tópico MQTT
+        client.publish(mqtt_topic, `Arquivo ${uploadedFile.name} enviado com sucesso!`, (err) => {
+          if (err) {
+            console.error(`Erro ao publicar mensagem no tópico ${mqtt_topic}: ${err}`);
+          } else {
+            console.log(`Mensagem publicada no tópico ${mqtt_topic}`);
+          }
+        });
+    
     // Após o upload bem-sucedido, renderiza a página de sucesso do upload e passa o nome do arquivo
     res.render("upload-success", { fileName: uploadedFile.name });
   });
