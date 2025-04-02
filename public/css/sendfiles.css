@@ -89,6 +89,17 @@ body {
   transition: background-color 0.3s ease;
 }
 
+/* Mensagem de Erro */
+.alert-danger {
+  text-align: center;  
+  color: red; 
+  background-color: #f8d7da; 
+  border: #f8d7da;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 20px; 
+}
+
 .send-button button:hover {
   background-color: #399EBB;
 }

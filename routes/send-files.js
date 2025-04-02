@@ -52,7 +52,8 @@ router.get("/", (req, res) => {
 router.post("/upload", (req, res) => {
   // Verifica se algum arquivo foi enviado
   if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send("Nenhum arquivo foi enviado");
+    // Re-renderiza a página de envio de arquivos com uma mensagem de erro
+    return res.render("send-files", { error: "Nenhum arquivo foi enviado" });
   }
   
   // Recupera o arquivo enviado com o nome "file1"

@@ -12,11 +12,14 @@ html(lang="pt-BR")
         a(href="/")
           h1.title Projetos IOT
         h2.subtitle Envios de arquivos via MQTT
+      // Exibe mensagem de erro se houver
       main
         form.upload-form(action="/send-files/upload" method="post" enctype="multipart/form-data")
           .upload-card
             label(for="file") Escolha o arquivo
             input#file(type="file", name="file1")
+          if error
+            .alert.alert-danger.text-center.mb-3 #{error}
           .send-button
             button(type="submit") Enviar Arquivo
       footer.footer
