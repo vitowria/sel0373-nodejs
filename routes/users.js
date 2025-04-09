@@ -42,7 +42,8 @@ router.post("/login", (req, res) => {
     console.log("Comparison Result:", result); // Log para verificação (depuração)
     if (result) {
       // Se as senhas coincidirem, redireciona para a rota de envio de arquivos
-      return res.redirect("/send-files");
+      //return res.redirect("/send-files");
+      return res.render("chat-or-files");
     } else {
       // Se não coincidirem, renderiza a página de login com mensagem de erro
       return res.render("login", { error: "Usuário ou senha incorretos!" });
@@ -70,6 +71,8 @@ router.post("/register", (req, res) => {
     console.log("Hashed password:", hash); // Log do hash (remova em produção)
     // Adiciona o novo usuário ao array, armazenando o username e o hash da senha
     users.push({ username, password: hash });
+    req.session.username = username; // aqui você guarda o nome na sessão
+
     // Redireciona para a página de login após o registro bem-sucedido
     res.redirect("/users");
   });

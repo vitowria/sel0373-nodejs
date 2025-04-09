@@ -1,0 +1,74 @@
+doctype html
+html(lang="pt-BR")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet", href="/css/index.css")
+    style.
+      #messages {
+        list-style: none;
+        padding: 1rem;
+        max-height: 300px;
+        overflow-y: auto;
+        background: #f0f0f0;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      #messages li {
+        padding: 8px 12px;
+        background: #ffffff;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+
+      #form {
+        display: flex;
+        gap: 10px;
+      }
+
+      #input {
+        flex: 1;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        background-color: #007BFF;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+  body
+    // Navbar
+    header.navbar
+      .logo
+        a.logo-text(href="/") Projetos IOT
+
+    // Chat principal
+    section.hero
+      .overlay
+        .hero-content
+          h1.hero-title Chat
+          ul#messages
+          form#form
+            input#input(type="text", autocomplete="off", placeholder="Digite sua mensagem...")
+            button(type="submit") Enviar
+
+    // Scripts
+    script(src="/socket.io/socket.io.js")
+    script(src="/js/chat.js")
+    script.
+      const USERNAME = "#{username}";
